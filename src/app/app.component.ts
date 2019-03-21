@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
 import {
-  Ng4FilesService,
-  Ng4FilesConfig,
-  Ng4FilesStatus,
-  Ng4FilesSelected
-} from './ng4-files';
+  NgFilesService,
+  NgFilesConfig,
+  NgFilesStatus,
+  NgFilesSelected
+} from './ng-files';
 
 @Component({
     selector: 'app-root',
@@ -15,12 +15,12 @@ export class AppComponent implements OnInit {
 
   public selectedFiles;
 
-  private sharedConfig: Ng4FilesConfig = {
+  private sharedConfig: NgFilesConfig = {
     acceptExtensions: ['jpg'],
     maxFilesCount: 5
   };
 
-  private namedConfig: Ng4FilesConfig = {
+  private namedConfig: NgFilesConfig = {
     acceptExtensions: ['js', 'doc', 'mp4'],
     maxFilesCount: 5,
     maxFileSize: 512000,
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   };
 
   constructor(
-      private ng4FilesService: Ng4FilesService
+      private ng4FilesService: NgFilesService
   ) {}
 
   ngOnInit() {
@@ -36,8 +36,9 @@ export class AppComponent implements OnInit {
     this.ng4FilesService.addConfig(this.namedConfig, 'another-config');
   }
 
-  public filesSelect(selectedFiles: Ng4FilesSelected): void {
-    if (selectedFiles.status !== Ng4FilesStatus.STATUS_SUCCESS) {
+  public filesSelect(selectedFiles: NgFilesSelected): void {
+    console.log(selectedFiles)
+    if (selectedFiles.status !== NgFilesStatus.STATUS_SUCCESS) {
       this.selectedFiles = selectedFiles.status;
       return;
     }
