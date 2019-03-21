@@ -1,31 +1,31 @@
-[![https://nodei.co/npm/angular4-files-upload.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/angular4-files-upload.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/angular4-files-upload)
+[![https://nodei.co/npm/angular-files-upload.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/angular-files-upload.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/angular-files-upload)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![npm version](https://badge.fury.io/js/angular4-files-upload.svg)](https://badge.fury.io/js/angular4-files-upload)
-[![Build Status](https://travis-ci.org/bonjurmrfirst/ng4-files.svg?branch=master)](https://travis-ci.org/bonjurmrfirst/ng4-files)
+[![npm version](https://badge.fury.io/js/angular-files-upload.svg)](https://badge.fury.io/js/angular-files-upload)
+[![Build Status](https://travis-ci.org/bonjurmrfirst/ng-files.svg?branch=master)](https://travis-ci.org/bonjurmrfirst/ng-files)
 
 [Project is not supported]
 
-# angular4-files-upload
+# angular-files-upload
 
 Upload files by clicking or dragging
 
 
 ## Getting started
 
-`npm i --save angular4-files-upload`
+`npm i --save angular-files-upload`
 
 Add following lines into your
 
 **module:**
 
 ```typescript
-import { Ng4FilesModule } from './ng4-files';
+import { ngFilesModule } from './ng-files';
 ```
 
-add Ng4FilesModule to your module imports section<br/>
+add ngFilesModule to your module imports section<br/>
 ```typescript
-imports: [ Ng4FilesModule ]
+imports: [ ngFilesModule ]
 ```
 
 <br/>
@@ -34,18 +34,18 @@ imports: [ Ng4FilesModule ]
 
 Upload by click:
 ```html
-<ng4-files-click (filesSelect)="filesSelect($event)">
+<ng-files-click (filesSelect)="filesSelect($event)">
   <span>Click me to upload</span>
-</ng4-files-click>
+</ng-files-click>
 ```
 
 Upload with drag'n'drop:
 ```html
-<ng4-files-drop (filesSelect)="filesSelect($event)">
+<ng-files-drop (filesSelect)="filesSelect($event)">
   <div style="display: inline-block; height: 100px; width: 100px; background-color: gray">
     {{selectedFiles}}
   </div>
-</ng4-files-drop>
+</ng-files-drop>
 ```
 
 <br/>
@@ -54,16 +54,16 @@ Upload with drag'n'drop:
  
 ```typescript
 import {
-  Ng4FilesStatus,
-  Ng4FilesSelected
-} from './ng4-files';
+  ngFilesStatus,
+  ngFilesSelected
+} from './ng-files';
  
 ...
  
 public selectedFiles;
  
-public filesSelect(selectedFiles: Ng4FilesSelected): void {
-    if (selectedFiles.status !== Ng4FilesStatus.STATUS_SUCCESS) {
+public filesSelect(selectedFiles: ngFilesSelected): void {
+    if (selectedFiles.status !== ngFilesStatus.STATUS_SUCCESS) {
       this.selectedFiles = selectedFiles.status;
       return;
       
@@ -77,23 +77,23 @@ public filesSelect(selectedFiles: Ng4FilesSelected): void {
 
 ##Configure
 
-To pass config to angular4-files-upload add following lines to you component.ts file:
+To pass config to angular-files-upload add following lines to you component.ts file:
 
 ### Shared Config
 
 ```typescript
 import {
-  Ng4FilesService,
-  Ng4FilesConfig,
-} from './ng4-files';
+  ngFilesService,
+  ngFilesConfig,
+} from './ng-files';
  
 ...
  
 constructor(
-      private ng4FilesService: Ng4FilesService
+      private ngFilesService: ngFilesService
   ) {}
  
-private testConfig: Ng4FilesConfig = {
+private testConfig: ngFilesConfig = {
     acceptExtensions: ['js', 'doc', 'mp4'],
     maxFilesCount: 5,
     maxFileSize: 5120000,
@@ -101,14 +101,14 @@ private testConfig: Ng4FilesConfig = {
   };
    
 ngOnInit() {
-    this.ng4FilesService.addConfig(this.testConfig);
+    this.ngFilesService.addConfig(this.testConfig);
 }
 ```
 
 ### Private configs
 
 Config added this way <br>
-`this.ng4FilesService.addConfig(this.testConfig);`<br>
+`this.ngFilesService.addConfig(this.testConfig);`<br>
 is shared config. All components will use it.
 
 But you can add multiple configs for your upload components.<br>
@@ -119,38 +119,38 @@ To do this create 2 configs and pass it to upload components as named configs.
 
 ```typescript
 import {
-  Ng4FilesService,
-  Ng4FilesConfig,
-  Ng4FilesStatus,
-  Ng4FilesSelected
-} from './ng4-files';
+  ngFilesService,
+  ngFilesConfig,
+  ngFilesStatus,
+  ngFilesSelected
+} from './ng-files';
  
  ...
  
 public selectedFiles; 
  
-private configImage: Ng4FilesConfig = {
+private configImage: ngFilesConfig = {
     acceptExtensions: ['jpg', 'jpeg'],
     maxFilesCount: 5,
     totalFilesSize: 101200000
   };
   
-private configVideo: Ng4FilesConfig = {
+private configVideo: ngFilesConfig = {
     acceptExtensions: ['mp4', 'avi'],
     maxFilesCount: 1
   };  
  
 constructor(
-      private ng4FilesService: Ng4FilesService
+      private ngFilesService: ngFilesService
   ) {}
 
   ngOnInit() {
-    this.ng4FilesService.addConfig(this.configImage, 'my-image-config');
-    this.ng4FilesService.addConfig(this.configVideo, 'my-video-config');
+    this.ngFilesService.addConfig(this.configImage, 'my-image-config');
+    this.ngFilesService.addConfig(this.configVideo, 'my-video-config');
   }
 
-  public filesSelect(selectedFiles: Ng4FilesSelected): void {
-    if (selectedFiles.status !== Ng4FilesStatus.STATUS_SUCCESS) {
+  public filesSelect(selectedFiles: ngFilesSelected): void {
+    if (selectedFiles.status !== ngFilesStatus.STATUS_SUCCESS) {
       this.selectedFiles = selectedFiles.status;
       return;
     }
@@ -165,16 +165,16 @@ constructor(
 .html
 
 ```html
-<ng4-files-click (filesSelect)="filesSelect($event)" [configId]="'my-image-config'">
+<ng-files-click (filesSelect)="filesSelect($event)" [configId]="'my-image-config'">
   <span>Upload</span>
-</ng4-files-click>
+</ng-files-click>
  
 
-<ng4-files-drop (filesSelect)="filesSelect($event)" [configId]="'my-video-config'">
+<ng-files-drop (filesSelect)="filesSelect($event)" [configId]="'my-video-config'">
   <div style="display: inline-block; height: 100px; width: 100px; background-color: gray">
     {{selectedFiles}}
   </div>
-</ng4-files-drop>
+</ng-files-drop>
 ```  
   
   
@@ -197,13 +197,13 @@ values: [number] (bytes)
 
 ### Template
 
-<ng4-files-click _(filesSelect)_="YOUR_HANDLER($event)" _[configId]_="YOUR_CONFIG">
+<ng-files-click _(filesSelect)_="YOUR_HANDLER($event)" _[configId]_="YOUR_CONFIG">
 
 _filesSelect_<br> 
-emit when files attached and pass Ng4FilesSelected object to YOUR_HANDLER:
+emit when files attached and pass ngFilesSelected object to YOUR_HANDLER:
 
 ```
-export enum Ng4FilesStatus {
+export enum ngFilesStatus {
     STATUS_SUCCESS,
     STATUS_MAX_FILES_COUNT_EXCEED,
     STATUS_MAX_FILE_SIZE_EXCEED,
@@ -211,8 +211,8 @@ export enum Ng4FilesStatus {
     STATUS_NOT_MATCH_EXTENSIONS
 }
 
-export interface Ng4FilesSelected {
-  status: Ng4FilesStatus;
+export interface ngFilesSelected {
+  status: ngFilesStatus;
   files: File[];
 }
 ```
@@ -224,15 +224,15 @@ Pass your named config with configId
 <br>
 
 ## Caveat
-Please don't use button tag in template inside ng4-files-click<br>
+Please don't use button tag in template inside ng-files-click<br>
 Don't: ```html
-<ng4-files-click>
+<ng-files-click>
     <button></button>
-</ng4-files-click>```
+</ng-files-click>```
 <br><br>
-ng4-files-click content is wrapped in label tag, so prefer something like
+ng-files-click content is wrapped in label tag, so prefer something like
 ````html
-<ng4-files-click>
+<ng-files-click>
     <span role="button" style="btn">Give me file ^.^</button>
-</ng4-files-click>```
+</ng-files-click>```
 ````
